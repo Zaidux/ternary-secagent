@@ -1,0 +1,145 @@
+# .gitignore — paranoid defaults.
+#
+# Rationale: this repository is PUBLIC. The failure mode we are defending
+# against is a single `git add -A` pulling a trained adapter, a corpus shard,
+# an alias map, or a credential file into public history.
+#
+# If you are ever unsure whether something belongs here, it does not.
+
+# ---------------------------------------------------------------- secrets
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+credentials.json
+*credentials*
+*secrets*
+*.netrc
+.netrc
+*_rsa
+*_ed25519
+
+# ------------------------------------------------------- model artifacts
+*.gguf
+*.ggml
+*.bin
+*.pt
+*.pth
+*.safetensors
+*.ckpt
+*.onnx
+*.mlmodel
+*.mlpackage
+*.pth.tar
+*.pt.tar.gz
+*.tar
+*.tar.gz
+*.zip
+*.zst
+adapter_model*
+pytorch_model*
+*.lora
+*.lora.bin
+
+# Anything that looks like a merged or quantized model directory
+models/
+weights/
+checkpoints/
+adapters/
+lora/
+outputs/*/checkpoint*/
+qlora-out/
+vision-out/
+
+# ---------------------------------------------------------- data & corpus
+# Real finding corpora, session exports, and benchmark ground truth.
+# Even "redacted" material is not safe to publish without manual review.
+data/
+corpus/
+datasets/
+scenarios/
+corpus-raw/
+corpus-processed/
+# The alias map REVERSES hostname aliases used for redaction. Never public.
+alias_map.json
+*alias*map*
+*redaction*map*
+**/findings_raw*
+**/sessions_raw*
+**/investigations*
+**/triage_raw*
+*.sqlite
+*.sqlite3
+*.db
+*.duckdb
+
+# --------------------------------------------------------- results & logs
+# Run outputs may embed target hostnames, paths, headers, cookies, tokens.
+results/*/trajectories/
+results/*/logs/
+results/*/*.jsonl
+outputs/
+runs/
+wandb/
+mlruns/
+logs/
+*.log
+nohup.out
+*.trace
+*.profile
+
+# ----------------------------------------------------------- eval targets
+# Bench targets and their manifests describe what we probe for.
+targets/
+manifests/
+**/docker-compose*.yml
+**/Dockerfile*
+
+# --------------------------------------------------------------- tooling
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+*.so
+*.dylib
+*.dll
+
+# --------------------------------------------------------------- editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# -------------------------------------------------- internal planning docs
+# These live in a separate private directory. Listed here as a second line of
+# defence in case a file gets copied in by accident.
+PLAN.md
+TRAINING-OPTIMIZATION.md
+AMD-APPLICATION-ANSWERS.md
+VISION-DECISION.md
+DIFF-*.md
+RESEUMED-SESSION.md
+PRIVATE/
+*_PRIVATE.md
+*_INTERNAL.md

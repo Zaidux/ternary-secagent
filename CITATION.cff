@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it."
+title: "Ternary Security Agent: evaluation methodology for sub-2-bit compressed tool-calling agents"
+abstract: >-
+  An open research programme asking whether sub-2-bit (1.58-bit) weight
+  compression can preserve cybersecurity, code, and tool-calling capability
+  well enough to run as an autonomous security agent. The repository's current
+  contribution is methodological: aggregate scores measurably under-report
+  compression damage in tool-calling agents, and per-channel error rates plus
+  success under tightened error budgets expose what the aggregate hides.
+type: software
+license: MIT
+repository-code: "https://github.com/Zaidux/ternary-secagent"
+keywords:
+  - quantization
+  - ternary-compression
+  - low-bit-llm
+  - agent-evaluation
+  - cybersecurity
+  - tool-calling
+authors:
+  - family-names: Zaidux
