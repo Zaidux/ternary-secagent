@@ -140,6 +140,33 @@ hard regime regardless of method.
   `alexmanoo/ternary_adaptation`. Multiplicative ternary update: each base weight
   kept / zeroed / sign-flipped.
 
+### S0 Tuning — *Zero-Overhead Adaptation of Hybrid Recurrent-Attention Models*
+arXiv:2604.01168 · MIT · `pip install s0-tuning` · `jackyoung27/s0-tuning`
+
+Optimises **one initial recurrent state matrix per recurrent layer** (GatedDeltaNet
+or Mamba-2) with all backbone weights frozen. 12.6M params — 0.3% of the model.
+Artefact ~48 MB, trained in ~3 minutes on one GPU from ~48 execution-verified
+solutions.
+
+**Reported:** Qwen3.5-4B HumanEval base 48.8% -> 72.2% (**+23.6 ± 1.7 pp**, 10
+seeds), beating LoRA r=24 by **+10.8 pp** (p<0.001). Cross-domain MATH-500
++4.8 pp, GSM8K +2.8 pp. **Spider (text-to-SQL): no transfer.** A prefix-tuning
+control on a pure Transformer *degrades* by −13.9 pp across all nine configs.
+Zero-inference-overhead is argued structurally — injected at t=0, absorbed into
+the running state at t=1 — not empirically.
+
+**Why it matters here.** For a hybrid model it is a PEFT surface that **never
+touches a weight matrix**, so it has no adapter-merge problem and no conflict
+with weight quantization. Relevant to any sub-2-bit agent work on a hybrid
+backbone.
+
+**Read the caveats.** Unverified single-author preprint; the +10.8 pp advantage
+is demonstrated on **one** model (on FalconH1-7B the authors report S0 and LoRA
+statistically indistinguishable at 3 seeds); Qwen3.8 is not in the project's
+support table; and it has **never been evaluated on a ternary model or on
+tool-calling**. α is auto-detected per architecture (0.07 GatedDeltaNet, 0.65
+Mamba-2) and its behaviour under weight quantization is unknown.
+
 ---
 
 ## Measuring compression damage
